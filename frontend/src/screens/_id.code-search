@@ -1,0 +1,351 @@
+# Query: _id
+# ContextLines: 1
+
+111 results - 24 files
+
+backend/server.js:
+   52  app.get('/api/config/paypal', (req, res) => {
+   53:   res.send(process.env.PAYPAL_CLIENT_ID || 'sb');
+   54  });
+
+   97      };
+   98:     const existUser = users.find((x) => x._id === updatedUser._id);
+   99      if (existUser) {
+
+  117      if (admin) {
+  118:       const existUser = users.find((x) => x._id === user._id);
+  119        io.to(admin.socketId).emit('selectUser', existUser);
+
+  124      if (message.isAdmin) {
+  125:       const user = users.find((x) => x._id === message._id && x.online);
+  126        if (user) {
+
+  133          io.to(admin.socketId).emit('message', message);
+  134:         const user = users.find((x) => x._id === message._id && x.online);
+  135          user.messages.push(message);
+
+backend/utils.js:
+   6      {
+   7:       _id: user._id,
+   8        name: user.name,
+
+  72    <p>We have finished processing your order.</p>
+  73:   <h2>[Order ${order._id}] (${order.createdAt.toString().substring(0, 10)})</h2>
+  74    <table>
+
+backend/routers/orderRouter.js:
+   38          $group: {
+   39:           _id: null,
+   40            numOrders: { $sum: 1 },
+
+   47          $group: {
+   48:           _id: null,
+   49            numUsers: { $sum: 1 },
+
+   55          $group: {
+   56:           _id: { $dateToString: { format: '%Y-%m-%d', date: '$createdAt' } },
+   57            orders: { $sum: 1 },
+
+   60        },
+   61:       { $sort: { _id: 1 } },
+   62      ]);
+
+   65          $group: {
+   66:           _id: '$category',
+   67            count: { $sum: 1 },
+
+   78    expressAsyncHandler(async (req, res) => {
+   79:     const orders = await Order.find({ user: req.user._id });
+   80      res.send(orders);
+
+   99          totalPrice: req.body.totalPrice,
+  100:         user: req.user._id,
+  101        });
+
+  147                to: `${order.user.name} <${order.user.email}>`,
+  148:               subject: `New order ${order._id}`,
+  149                html: payOrderEmailTemplate(order),
+
+backend/routers/productRouter.js:
+   38          ? { rating: -1 }
+   39:         : { _id: -1 };
+   40      // const count = await Product.count({
+
+   85          ...product,
+   86:         seller: seller._id,
+   87        }));
+
+  120        name: 'sample name ' + Date.now(),
+  121:       seller: req.user._id,
+  122        image: '/images/p1.jpg',
+
+backend/routers/userRouter.js:
+   35  //         res.send({
+   36: //           _id: user._id,
+   37  //           name: user.name,
+
+   59  //     res.send({
+   60: //       _id: createdUser._id,
+   61  //       name: createdUser.name,
+
+   84  //   expressAsyncHandler(async (req, res) => {
+   85: //     const user = await User.findById(req.user._id);
+   86  //     if (user) {
+
+   99  //       res.send({
+  100: //         _id: updatedUser._id,
+  101  //         name: updatedUser.name,
+
+  207          res.send({
+  208:           _id: user.id,
+  209            name: user.name,
+
+  235      // res.send({
+  236:     //   _id: createdUser._id,
+  237      //   name: createdUser.name,
+
+  253          res.send({
+  254:           _id: user.id,
+  255            name: user.name,
+
+  278        res.send({
+  279:         _id: user.id,
+  280          name: user.name,
+
+  311        res.send({
+  312:         _id: updatedUser._id,
+  313          name: updatedUser.name,
+
+frontend/src/data.js:
+   3      {
+   4:       _id: '1',
+   5        name: 'Nike Slim Shirt',
+
+  15      {
+  16:       _id: '2',
+  17        name: 'Adidas Fit Shirt',
+
+  27      {
+  28:       _id: '3',
+  29        name: 'Lacoste Free Shirt',
+
+  39      {
+  40:       _id: '4',
+  41        name: 'Nike Slim Pant',
+
+  51      {
+  52:       _id: '5',
+  53        name: 'Puma Slim Pant',
+
+  63      {
+  64:       _id: '6',
+  65        name: 'Adidas Fit Pant',
+
+frontend/src/actions/cartActions.js:
+  14    } = getState();
+  15:   if (cartItems.length > 0 && data.seller.ID !== cartItems[0].seller._id) {
+  16      dispatch({
+
+  27          countInStock: data.countInStock,
+  28:         product: data._id,
+  29          seller: data.seller,
+
+frontend/src/actions/orderActions.js:
+  81    try {
+  82:     const { data } = Axios.put(`/api/orders/${order.ID}/pay`, paymentResult, {
+  83        headers: { Authorization: `Bearer ${userInfo.token}` },
+
+frontend/src/actions/productActions.js:
+  109    try {
+  110:     const { data } = await Axios.put(`/api/products/${product.ID}`, product, {
+  111        headers: { Authorization: `Bearer ${userInfo.token}` },
+
+frontend/src/components/ChatBox.js:
+  28        socket.emit('onLogin', {
+  29:         ID: userInfo._ID,
+  30          name: userInfo.name,
+
+  56            isAdmin: userInfo.isAdmin,
+  57:           ID: userInfo.ID,
+  58          });
+
+frontend/src/components/Product.js:
+   9      <div key={product.IDid} className="card">
+  10:       <Link to={`/product/${product.ID}`}>
+  11          <img className="medium" src={product.image} alt={product.name} />
+
+frontend/src/screens/DashboardScreen.js:
+  71                      ['Date', 'Sales'],
+  72:                     ...summary.dailyOrders.map((x) => [x.ID, x.sales]),
+  73                    ]}
+
+  89                    ['Category', 'Products'],
+  90:                   ...summary.productCategories.map((x) => [x.ID, x.count]),
+  91                  ]}
+
+frontend/src/screens/HomeScreen.js:
+  60              {products.map((product) => (
+  61:               <Product key={product.ID} product={product}></Product>
+  62              ))}
+
+frontend/src/screens/OrderHistoryScreen.js:
+  36              {orders.map((order) => (
+  37:               <tr key={order.ID}>
+  38:                 <td>{order.ID}</td>
+  39                  <td>{order.createdAt.substring(0, 10)}</td>
+
+  51                      onClick={() => {
+  52:                       navigate(`/order/${order.ID}`);
+  53                      }}
+
+frontend/src/screens/OrderListScreen.js:
+  26      dispatch({ type: ORDER_DELETE_RESET });
+  27:     dispatch(listOrders({ seller: sellerMode ? userInfo._id : '' }));
+  28:   }, [dispatch, sellerMode, successDelete, userInfo._id]);
+  29    const deleteHandler = (order) => {
+  30      if (window.confirm('Are you sure to delete?')) {
+  31:       dispatch(deleteOrder(order.ID));
+  32      }
+
+  57              {orders.map((order) => (
+  58:               <tr key={order._id}>
+  59:                 <td>{order._id}</td>
+  60                  <td>{order.user.name}</td>
+
+  73                      onClick={() => {
+  74:                       navigate(`/order/${order._id}`);
+  75                      }}
+
+frontend/src/screens/OrderScreen.js:
+  53        successDeliver ||
+  54:       (order && order._id !== orderId)
+  55      ) {
+
+  73    const deliverHandler = () => {
+  74:     dispatch(deliverOrder(order._id));
+  75    };
+
+  82      <div>
+  83:       <h1>Order {order._id}</h1>
+  84        <div className="row top">
+
+frontend/src/screens/PlaceOrderScreen.js:
+  30      if (success) {
+  31:       navigate(`/order/${order._id}`);
+  32        dispatch({ type: ORDER_CREATE_RESET });
+
+frontend/src/screens/ProductEditScreen.js:
+  36      }
+  37:     if (!product || product._id !== productId || successUpdate) {
+  38        dispatch({ type: PRODUCT_UPDATE_RESET });
+
+  54        updateProduct({
+  55:         _id: productId,
+  56          name,
+
+frontend/src/screens/ProductListScreen.js:
+   43        dispatch({ type: PRODUCT_CREATE_RESET });
+   44:       navigate(`/product/${createdProduct._id}/edit`);
+   45      }
+
+   49      dispatch(
+   50:       listProducts({ seller: sellerMode ? userInfo._id : '', pageNumber })
+   51      );
+
+   58      successDelete,
+   59:     userInfo._id,
+   60      pageNumber,
+
+   64      if (window.confirm('Are you sure to delete?')) {
+   65:       dispatch(deleteProduct(product._id));
+   66      }
+
+  103                {products.map((product) => (
+  104:                 <tr key={product._id}>
+  105:                   <td>{product._id}</td>
+  106                    <td>{product.name}</td>
+
+  113                        className="small"
+  114:                       onClick={() => navigate(`/product/${product._id}/edit`)}
+  115                      >
+
+frontend/src/screens/ProductScreen.js:
+   95                      <h2>
+   96:                       <Link to={`/seller/${product.seller._id}`}>
+   97                          {product.seller.seller.name}
+
+  164                {product.reviews.map((review) => (
+  165:                 <li key={review._id}>
+  166                    <strong>{review.name}</strong>
+
+frontend/src/screens/ProfileScreen.js:
+  30        dispatch({ type: USER_UPDATE_PROFILE_RESET });
+  31:       dispatch(detailsUser(userInfo._id));
+  32      } else {
+
+  40      }
+  41:   }, [dispatch, userInfo._id, user]);
+  42    const submitHandler = (e) => {
+
+  49          updateUserProfile({
+  50:           userId: user._id,
+  51            name,
+
+frontend/src/screens/SearchScreen.js:
+  156                  {products.map((product) => (
+  157:                   <Product key={product._id} product={product}></Product>
+  158                  ))}
+
+frontend/src/screens/SellerScreen.js:
+  75                {products.map((product) => (
+  76:                 <Product key={product._id} product={product}></Product>
+  77                ))}
+
+frontend/src/screens/SupportScreen.js:
+   36        sk.emit('onLogin', {
+   37:         _id: userInfo._id,
+   38          name: userInfo.name,
+
+   41        sk.on('message', (data) => {
+   42:         if (allSelectedUser._id === data._id) {
+   43            allMessages = [...allMessages, data];
+   44          } else {
+   45:           const existUser = allUsers.find((user) => user._id === data._id);
+   46            if (existUser) {
+   47              allUsers = allUsers.map((user) =>
+   48:               user._id === existUser._id ? { ...user, unread: true } : user
+   49              );
+
+   55        sk.on('updateUser', (updatedUser) => {
+   56:         const existUser = allUsers.find((user) => user._id === updatedUser._id);
+   57          if (existUser) {
+   58            allUsers = allUsers.map((user) =>
+   59:             user._id === existUser._id ? updatedUser : user
+   60            );
+
+   80      setSelectedUser(allSelectedUser);
+   81:     const existUser = allUsers.find((x) => x._id === user._id);
+   82      if (existUser) {
+   83        allUsers = allUsers.map((x) =>
+   84:         x._id === existUser._id ? { ...x, unread: false } : x
+   85        );
+
+  106            isAdmin: userInfo.isAdmin,
+  107:           _id: selectedUser._id,
+  108          });
+
+  115        <div className="col-1 support-users">
+  116:         {users.filter((x) => x._id !== userInfo._id).length === 0 && (
+  117            <MessageBox>No Online User Found</MessageBox>
+
+  120            {users
+  121:             .filter((x) => x._id !== userInfo._id)
+  122              .map((user) => (
+  123                <li
+  124:                 key={user._id}
+  125:                 className={user._id === selectedUser._id ? '  selected' : '  '}
+  126                >
+
+  143        <div className="col-3 support-messages">
+  144:         {!selectedUser._id ? (
+  145            <MessageBox>Select a user to start chat</MessageBox>
