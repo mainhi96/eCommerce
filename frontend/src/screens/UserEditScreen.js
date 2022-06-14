@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { detailsUser, updateUser } from '../actions/userActions';
+import { detailsUser, updateUser, detailsUserForAdmin } from '../actions/userActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import { USER_UPDATE_RESET } from '../constants/userConstants';
@@ -35,7 +35,7 @@ export default function UserEditScreen(props) {
       navigate('/userlist');
     }
     if (!user) {
-      dispatch(detailsUser(userId));
+      dispatch(detailsUserForAdmin(userId));
     } else {
       setName(user.name);
       setEmail(user.email);

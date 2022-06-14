@@ -1,23 +1,21 @@
 {
-  "name": "amazona",
+  "name": "men_boutique",
   "type": "module",
   "version": "1.0.0",
-  "description": "Ecommerce website like amazon",
+  "description": "Ecommerce website for man fashion",
   "main": "index.js",
   "scripts": {
     "build": "cd frontend && npm install && npm run build",
     "start": "nodemon --watch backend --exec node --experimental-modules backend/server.js"
   },
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/basir/amazona.git"
+    "type": "git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/basir/amazona/issues"
+    "url": ""
   },
-  "homepage": "https://github.com/basir/amazona#readme",
   "devDependencies": {
     "eslint": "^7.9.0",
     "eslint-plugin-react": "^7.21.2",

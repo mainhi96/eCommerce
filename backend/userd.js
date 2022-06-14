@@ -93,9 +93,10 @@ const  User1 = {
         });
         // ...  
       })},
-      resgister(user,email,password){
+      resgister(user){
        var sql = "Insert into users(name,email,password) values('"+ user.name +"','"+ user.email +"','"+ user.password +"')" ;
-    
+        console.log("1111111111111111111");
+          console.log(sql);
         return new Promise ((resolve, reject) => {
           
           return db.query(sql, function (error, results, fields) {

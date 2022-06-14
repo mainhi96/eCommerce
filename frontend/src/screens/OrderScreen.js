@@ -295,11 +295,11 @@ export default function OrderScreen(props) {
 
   const successPaymentHandler = (paymentResult) => {
     dispatch(payOrder(order[0].orderID));
+    navigate('/orderhistory');
   };
   const deliverHandler = () => {
     dispatch(deliverOrder(order[0].orderID));
-
-
+    navigate('/orderlist/seller');
   };
   console.log('check aaaaa');
   console.log(order);

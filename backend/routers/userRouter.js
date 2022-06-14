@@ -199,10 +199,12 @@ userRouter.post(
 // });
 console.log(req.body.email);
 
-const user = await User1.findOne(req.body.email );
+var user = await User1.findOne(req.body.email );
 
 
     if (user.password == req.body.password) {
+      console.log("FIND 444");
+      console.log(user);
      
         res.send({
           ID: user.id,
@@ -212,7 +214,6 @@ const user = await User1.findOne(req.body.email );
           isSeller: user.isSeller,
           token: generateToken(user),
         });
-       console.log(user);
         return;
       
   
@@ -245,7 +246,10 @@ userRouter.post(
     //console.log(sql);
       console.log(req)
     //const save = await User1.resgister({ name: req.body.name,email: req.body.email, password: req.body.password });
-    const user = await User1.findOne({ email: req.body.email });
+    const user1 = await User1.resgister(req.body);
+    if (user1)
+    var user= await User1.findOne(req.body.email );
+      console.log(user)
 
 
    
@@ -289,6 +293,31 @@ userRouter.get(
       res.status(404).send({ message: 'User Not Found' });
     }
   })
+  
+);
+userRouter.get(
+  '/A/:userID',
+  expressAsyncHandler(async (req, res) => {
+    console.log("AAAAA2222222")
+      console.log(req.params);
+     
+     const user = await User1.findByID(req.params.userID);
+
+    if (user) {
+      res.send({
+        ID: user.id,
+        name: user.name,
+        email: user.email,
+        isAdmin: user.isAdmin,
+        isSeller: user.isSeller,
+        token: generateToken(user),
+      });
+
+    } else {
+      res.status(404).send({ message: 'User Not Found' });
+    }
+  })
+  
 );
 userRouter.put(
   '/profile',
@@ -371,8 +400,10 @@ userRouter.put(
   isAuth,
   isAdmin,
   expressAsyncHandler(async (req, res) => {
-    const user = await User1.findByID(req.body.ID);
     console.log("-----------");
+    console.log(req.body);
+    const user = await User1.findByID(req.body.ID);
+ 
 
     console.log(user); 
     if (user) {

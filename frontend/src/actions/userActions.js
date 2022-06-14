@@ -92,6 +92,25 @@ export const detailsUser = (email) => async (dispatch, getState) => {
     dispatch({ type: USER_DETAILS_FAIL, payload: message });
   }
 };
+export const detailsUserForAdmin = (userID) => async (dispatch, getState) => {
+  dispatch({ type: USER_DETAILS_REQUEST, payload: userID });
+  const {
+    userSignin: { userInfo },
+  } = getState();
+  try {
+   
+    const { data } = await Axios.get(`/api/users/A/${userID}`, {
+      headers: { Authorization: `Bearer ${userInfo?.token}` },
+    });
+    dispatch({ type: USER_DETAILS_SUCCESS, payload: data });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: USER_DETAILS_FAIL, payload: message });
+  }
+};
 export const updateUserProfile = (user) => async (dispatch, getState) => {
   dispatch({ type: USER_UPDATE_PROFILE_REQUEST, payload: user });
   const {
