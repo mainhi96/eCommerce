@@ -66,7 +66,7 @@ const  Order1 = {
   dailyOrder(){
     return new Promise ((resolve, reject) => {
 
-   var sql = "SELECT Date(createAt) as _id, count(*) as orders, sum(totalPrice) as sales from orders o group by createAt";
+   var sql = "SELECT Date(createAt) as _id, count(*) as orders, sum(totalPrice) as sales from orders o group by  Date(createAt)";
    console.log (sql);
       return db.query(sql, function (error, results, fields) {
         console.log(results);
@@ -143,38 +143,7 @@ const  Order1 = {
     })
    
 
-   // connection.release();
 
-    // let data ;
-    //  await db.connect(  async function(err) {
-    //         if (err) ;
-    //         var sql = "select * from user where email= '"+ [id.email] +"'" ;
-           
-
-    //        return  await db.query(sql, function(err, results) {
-    //           if (err) ;
-    //           console.log("aaaaa 2222");
-    //           console.log(results);
-    //           data = results;
-    //           //return results;
-    //         })
-    //   });
-
-    //   return {
-    //     status : 999,
-    //     data : data
-    //   }
-	//	return db.query("select * from user where email=?",[id.email],callback);
-	// },
-	// addSV:function(sinhvien,callback){
-	// 	return db.query("Insert into sinhvien(name,class,dob) values(?,?,?)",[sinhvien.name,sinhvien.class,sinhvien.dob],callback);
-	// },
-	// deleteSV:function(id,callback){
-	// 	return db.query("delete from sinhvien where Id=?",[id],callback);
-	// },
-	// updateSV:function(id,sinhvien,callback){
-	// 	return db.query("update sinhvien set name=?,class=?,dob=? where Id=?",[sinhvien.name,sinhvien.class,sinhvien.dob,id],callback);
-	// }
     },
     findOrder(id){
       return new Promise ((resolve, reject) => {

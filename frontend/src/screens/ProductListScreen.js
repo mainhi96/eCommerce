@@ -40,8 +40,7 @@ export default function ProductListScreen(props) {
   const dispatch = useDispatch();
   useEffect(() => {
     if (successCreate) {
-      dispatch({ type: PRODUCT_CREATE_RESET });
-      navigate(`/product/${createdProduct.ID}/edit`);
+      window.alert('Comming soon');
     }
     if (successDelete) {
       dispatch({ type: PRODUCT_DELETE_RESET });
@@ -67,7 +66,8 @@ export default function ProductListScreen(props) {
     }
   };
   const createHandler = () => {
-    dispatch(createProduct());
+    window.alert('Comming soon');
+    
   };
   return (
     <div>

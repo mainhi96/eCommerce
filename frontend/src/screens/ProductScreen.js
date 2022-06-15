@@ -45,9 +45,7 @@ export default function ProductScreen(props) {
   const submitHandler = (e) => {
     e.preventDefault();
     if (comment && rating) {
-      dispatch(
-        createReview(productId, { rating, comment, name: userInfo.name })
-      );
+      window.alert('Comming soon');
     } else {
       alert('Please enter comment and rating');
     }

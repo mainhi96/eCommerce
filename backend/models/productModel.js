@@ -161,7 +161,7 @@ const  Product1 = {
           return new Promise ((resolve, reject) => {
             console.log("DELETE");
             console.log(product);
-            var sql = "delete from products where ID='" + product +"'" ;
+            var sql = "update products set countInstock = 0 where ID='" + product +"'" ;
             return db.query(sql, function (error, results, fields) {
               if (error) throw error;
               resolve(results)
