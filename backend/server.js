@@ -1,7 +1,6 @@
 import http from 'http';
 import { Server } from 'socket.io';
 import express from 'express';
-import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import path from 'path';
 import productRouter from './routers/productRouter.js';
@@ -14,35 +13,6 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-
-
-// const URL = 'mongodb+srv://mongo-user:<password>@cluster-mongo-test.ieqay.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
-const URL = 'mongodb+srv://root:root123456@cluster0.4c1mz3g.mongodb.net/?retryWrites=true&w=majority'
-
-const connectDB = async () => {
-  try {
-
-     mongoose.connect(
-      URL,
-      { 
-        
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-      }
-    )
-
-    console.log('Connected to mongoDB')
-  } catch (error) {
-    console.log("------------------------------------------------------------------------------------------------")
-    console.log(error)
-    process.exit(1)
-  }
-}
-
-connectDB()
-
-
 
 
 app.use('/api/uploads', uploadRouter);

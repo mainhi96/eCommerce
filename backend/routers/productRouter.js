@@ -1,11 +1,9 @@
 import express from 'express';
 import expressAsyncHandler from 'express-async-handler';
-import data from '../data.js';
-import Product from '../models/productModel.js';
-import User from '../models/userModel.js';
+
 import { isAdmin, isAuth, isSellerOrAdmin } from '../utils.js';
-import Product1 from '../models/productd.js';
-import User1 from '../userd.js';
+import Product1 from '../models/productModel.js';
+import User1 from '../models/userModel.js';
 
 const productRouter = express.Router();
 
